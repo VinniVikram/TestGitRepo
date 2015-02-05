@@ -1,0 +1,331 @@
+<!-- 
+ Web Services API : WS06_ContractExchange
+ -->
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://soap.sforce.com/schemas/class/WS06_ContractExchange" targetNamespace="http://soap.sforce.com/schemas/class/WS06_ContractExchange">
+<types>
+<xsd:schema elementFormDefault="qualified" targetNamespace="http://soap.sforce.com/schemas/class/WS06_ContractExchange">
+<xsd:element name="AllowFieldTruncationHeader">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="allowFieldTruncation" type="xsd:boolean"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="CallOptions">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="client" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="DebuggingHeader">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="categories" minOccurs="0" maxOccurs="unbounded" type="tns:LogInfo"/>
+<xsd:element name="debugLevel" type="tns:LogType"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:complexType name="LogInfo">
+<xsd:sequence>
+<xsd:element name="category" type="tns:LogCategory"/>
+<xsd:element name="level" type="tns:LogCategoryLevel"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:simpleType name="LogCategory">
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="Db"/>
+<xsd:enumeration value="Workflow"/>
+<xsd:enumeration value="Validation"/>
+<xsd:enumeration value="Callout"/>
+<xsd:enumeration value="Apex_code"/>
+<xsd:enumeration value="Apex_profiling"/>
+<xsd:enumeration value="Visualforce"/>
+<xsd:enumeration value="System"/>
+<xsd:enumeration value="All"/>
+</xsd:restriction>
+</xsd:simpleType>
+<xsd:simpleType name="LogCategoryLevel">
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="Internal"/>
+<xsd:enumeration value="Finest"/>
+<xsd:enumeration value="Finer"/>
+<xsd:enumeration value="Fine"/>
+<xsd:enumeration value="Debug"/>
+<xsd:enumeration value="Info"/>
+<xsd:enumeration value="Warn"/>
+<xsd:enumeration value="Error"/>
+</xsd:restriction>
+</xsd:simpleType>
+<xsd:simpleType name="LogType">
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="None"/>
+<xsd:enumeration value="Debugonly"/>
+<xsd:enumeration value="Db"/>
+<xsd:enumeration value="Profiling"/>
+<xsd:enumeration value="Callout"/>
+<xsd:enumeration value="Detail"/>
+</xsd:restriction>
+</xsd:simpleType>
+<xsd:element name="DebuggingInfo">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="debugLog" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="SessionHeader">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="sessionId" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:simpleType name="ID">
+<xsd:restriction base="xsd:string">
+<xsd:length value="18"/>
+<xsd:pattern value="[a-zA-Z0-9]{18}"/>
+</xsd:restriction>
+</xsd:simpleType>
+<xsd:complexType name="ContractHeader">
+<xsd:sequence>
+<xsd:element name="account" minOccurs="0" type="xsd:string" nillable="true"/>
+<xsd:element name="ASACurrency" minOccurs="0" type="xsd:string" nillable="true"/>
+<xsd:element name="ASAFolderCode" minOccurs="0" type="xsd:long" nillable="true"/>
+<xsd:element name="ASAFolderName" minOccurs="0" type="xsd:string" nillable="true"/>
+<xsd:element name="ASAFolderNumber" minOccurs="0" type="xsd:long" nillable="true"/>
+<xsd:element name="ASAFolderStatus" minOccurs="0" type="xsd:string" nillable="true"/>
+<xsd:element name="ASAUserFirstName" minOccurs="0" type="xsd:string" nillable="true"/>
+<xsd:element name="ASAUserLastName" minOccurs="0" type="xsd:string" nillable="true"/>
+<xsd:element name="ASAUserLogin" minOccurs="0" type="xsd:string" nillable="true"/>
+<xsd:element name="averagePrice" minOccurs="0" type="xsd:double" nillable="true"/>
+<xsd:element name="budgetPerPerson" minOccurs="0" type="xsd:double" nillable="true"/>
+<xsd:element name="ComplementaryPerimeter" minOccurs="0" type="xsd:string" nillable="true"/>
+<xsd:element name="contact" minOccurs="0" type="xsd:string" nillable="true"/>
+<xsd:element name="endDate" minOccurs="0" type="xsd:date" nillable="true"/>
+<xsd:element name="finalClient" minOccurs="0" type="xsd:string" nillable="true"/>
+<xsd:element name="FolderCreatorFirstName" minOccurs="0" type="xsd:string" nillable="true"/>
+<xsd:element name="FolderCreatorLastName" minOccurs="0" type="xsd:string" nillable="true"/>
+<xsd:element name="FolderCreatorLogin" minOccurs="0" type="xsd:string" nillable="true"/>
+<xsd:element name="isDeletedInASA" minOccurs="0" type="xsd:boolean" nillable="true"/>
+<xsd:element name="LIMITOfferDate" minOccurs="0" type="xsd:date" nillable="true"/>
+<xsd:element name="offerGroup" minOccurs="0" type="xsd:string" nillable="true"/>
+<xsd:element name="offerType" minOccurs="0" type="xsd:string" nillable="true"/>
+<xsd:element name="pax" minOccurs="0" type="xsd:int" nillable="true"/>
+<xsd:element name="proposalProcess" minOccurs="0" type="xsd:string" nillable="true"/>
+<xsd:element name="reason" minOccurs="0" type="xsd:string" nillable="true"/>
+<xsd:element name="renewal" minOccurs="0" type="xsd:boolean" nillable="true"/>
+<xsd:element name="revenue" minOccurs="0" type="xsd:double" nillable="true"/>
+<xsd:element name="roomNights" minOccurs="0" type="xsd:int" nillable="true"/>
+<xsd:element name="startDate" minOccurs="0" type="xsd:date" nillable="true"/>
+<xsd:element name="TaxRules" minOccurs="0" type="xsd:string" nillable="true"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="HotelOffers">
+<xsd:sequence>
+<xsd:element name="ComplementaryHotelOffer" minOccurs="0" type="xsd:string" nillable="true"/>
+<xsd:element name="HOClientRefusal" minOccurs="0" type="xsd:int" nillable="true"/>
+<xsd:element name="HOHotelApproval" minOccurs="0" type="xsd:int" nillable="true"/>
+<xsd:element name="HOHotelRefusal" minOccurs="0" type="xsd:int" nillable="true"/>
+<xsd:element name="HOProposal" minOccurs="0" type="xsd:int" nillable="true"/>
+<xsd:element name="HORequested" minOccurs="0" type="xsd:int" nillable="true"/>
+<xsd:element name="HOSelected" minOccurs="0" type="xsd:int" nillable="true"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ListOfAddedAccounts">
+<xsd:sequence>
+<xsd:element name="addedAccounts" minOccurs="0" maxOccurs="unbounded" type="xsd:string" nillable="true"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ListOfRemovedAccounts">
+<xsd:sequence>
+<xsd:element name="removedAccounts" minOccurs="0" maxOccurs="unbounded" type="xsd:string" nillable="true"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="Response">
+<xsd:sequence>
+<xsd:element name="errorCode" minOccurs="0" type="xsd:string" nillable="true"/>
+<xsd:element name="errorMessage" minOccurs="0" type="xsd:string" nillable="true"/>
+<xsd:element name="success" minOccurs="0" type="xsd:boolean" nillable="true"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="createUpdateContract">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="contractHeader" type="tns:ContractHeader" nillable="true"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="createUpdateContractResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="result" type="tns:Response" nillable="true"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="updateBeneficiaries">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="ASAFolderCode" type="xsd:long" nillable="true"/>
+<xsd:element name="listAddedAccs" type="tns:ListOfAddedAccounts" nillable="true"/>
+<xsd:element name="listRemovedAccs" type="tns:ListOfRemovedAccounts" nillable="true"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="updateBeneficiariesResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="result" type="tns:Response" nillable="true"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="updateDistributionAgencies">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="ASAFolderCode" type="xsd:long" nillable="true"/>
+<xsd:element name="listAddedAccs" type="tns:ListOfAddedAccounts" nillable="true"/>
+<xsd:element name="listRemovedAccs" type="tns:ListOfRemovedAccounts" nillable="true"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="updateDistributionAgenciesResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="result" type="tns:Response" nillable="true"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="updateHotelOffers">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="ASAFolderCode" type="xsd:long" nillable="true"/>
+<xsd:element name="hotelOffers" type="tns:HotelOffers" nillable="true"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="updateHotelOffersResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="result" type="tns:Response" nillable="true"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+</xsd:schema>
+</types>
+<!--  Message for the header parts  -->
+<message name="Header">
+<part name="AllowFieldTruncationHeader" element="tns:AllowFieldTruncationHeader"/>
+<part name="CallOptions" element="tns:CallOptions"/>
+<part name="DebuggingHeader" element="tns:DebuggingHeader"/>
+<part name="DebuggingInfo" element="tns:DebuggingInfo"/>
+<part name="SessionHeader" element="tns:SessionHeader"/>
+</message>
+<!--  Operation Messages  -->
+<message name="createUpdateContractRequest">
+<part element="tns:createUpdateContract" name="parameters"/>
+</message>
+<message name="createUpdateContractResponse">
+<part element="tns:createUpdateContractResponse" name="parameters"/>
+</message>
+<message name="updateBeneficiariesRequest">
+<part element="tns:updateBeneficiaries" name="parameters"/>
+</message>
+<message name="updateBeneficiariesResponse">
+<part element="tns:updateBeneficiariesResponse" name="parameters"/>
+</message>
+<message name="updateDistributionAgenciesRequest">
+<part element="tns:updateDistributionAgencies" name="parameters"/>
+</message>
+<message name="updateDistributionAgenciesResponse">
+<part element="tns:updateDistributionAgenciesResponse" name="parameters"/>
+</message>
+<message name="updateHotelOffersRequest">
+<part element="tns:updateHotelOffers" name="parameters"/>
+</message>
+<message name="updateHotelOffersResponse">
+<part element="tns:updateHotelOffersResponse" name="parameters"/>
+</message>
+<portType name="WS06_ContractExchangePortType">
+<operation name="createUpdateContract">
+<input message="tns:createUpdateContractRequest"/>
+<output message="tns:createUpdateContractResponse"/>
+</operation>
+<operation name="updateBeneficiaries">
+<input message="tns:updateBeneficiariesRequest"/>
+<output message="tns:updateBeneficiariesResponse"/>
+</operation>
+<operation name="updateDistributionAgencies">
+<input message="tns:updateDistributionAgenciesRequest"/>
+<output message="tns:updateDistributionAgenciesResponse"/>
+</operation>
+<operation name="updateHotelOffers">
+<input message="tns:updateHotelOffersRequest"/>
+<output message="tns:updateHotelOffersResponse"/>
+</operation>
+</portType>
+<binding name="WS06_ContractExchangeBinding" type="tns:WS06_ContractExchangePortType">
+<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+<operation name="createUpdateContract">
+<soap:operation soapAction=""/>
+<input>
+<soap:header use="literal" part="SessionHeader" message="tns:Header"/>
+<soap:header use="literal" part="CallOptions" message="tns:Header"/>
+<soap:header use="literal" part="DebuggingHeader" message="tns:Header"/>
+<soap:header use="literal" part="AllowFieldTruncationHeader" message="tns:Header"/>
+<soap:body use="literal" parts="parameters"/>
+</input>
+<output>
+<soap:header use="literal" part="DebuggingInfo" message="tns:Header"/>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="updateBeneficiaries">
+<soap:operation soapAction=""/>
+<input>
+<soap:header use="literal" part="SessionHeader" message="tns:Header"/>
+<soap:header use="literal" part="CallOptions" message="tns:Header"/>
+<soap:header use="literal" part="DebuggingHeader" message="tns:Header"/>
+<soap:header use="literal" part="AllowFieldTruncationHeader" message="tns:Header"/>
+<soap:body use="literal" parts="parameters"/>
+</input>
+<output>
+<soap:header use="literal" part="DebuggingInfo" message="tns:Header"/>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="updateDistributionAgencies">
+<soap:operation soapAction=""/>
+<input>
+<soap:header use="literal" part="SessionHeader" message="tns:Header"/>
+<soap:header use="literal" part="CallOptions" message="tns:Header"/>
+<soap:header use="literal" part="DebuggingHeader" message="tns:Header"/>
+<soap:header use="literal" part="AllowFieldTruncationHeader" message="tns:Header"/>
+<soap:body use="literal" parts="parameters"/>
+</input>
+<output>
+<soap:header use="literal" part="DebuggingInfo" message="tns:Header"/>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="updateHotelOffers">
+<soap:operation soapAction=""/>
+<input>
+<soap:header use="literal" part="SessionHeader" message="tns:Header"/>
+<soap:header use="literal" part="CallOptions" message="tns:Header"/>
+<soap:header use="literal" part="DebuggingHeader" message="tns:Header"/>
+<soap:header use="literal" part="AllowFieldTruncationHeader" message="tns:Header"/>
+<soap:body use="literal" parts="parameters"/>
+</input>
+<output>
+<soap:header use="literal" part="DebuggingInfo" message="tns:Header"/>
+<soap:body use="literal"/>
+</output>
+</operation>
+</binding>
+<service name="WS06_ContractExchangeService">
+<documentation/>
+<port binding="tns:WS06_ContractExchangeBinding" name="WS06_ContractExchange">
+<soap:address location="https://cs20.salesforce.com/services/Soap/class/WS06_ContractExchange"/>
+</port>
+</service>
+</definitions>
