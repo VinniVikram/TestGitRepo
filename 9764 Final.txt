@@ -1,0 +1,62 @@
+List<Account>anAccountList = new List<Account>();
+    anAccountList= [Select id,name from account where id in('001b0000005JP2G','001b0000005JP2I')];
+
+    Map<String, List<Account>> allChildAccounts = new Map<String, List<Account>>();
+    
+    if(anAccountList != null && !anAccountList.isEmpty()) {
+        
+        Set<Id> accountIdSet = new Set<Id>();
+        
+        for(Account anAccount:anAccountList) {
+            allChildAccounts.put(String.valueOf(anAccount.Id).subString(0,15), new List<Account>());
+            accountIdSet.add(anAccount.Id);
+        }
+        System.debug('####'+allChildAccounts);
+        Boolean hasChildren = true;
+        Integer levelNumber = 0;
+        System.debug('!!!!!'+allChildAccounts);
+        while(hasChildren && levelNumber < 10) {
+
+            hasChildren = false;
+            Set<Id> childAccountIdSet = new Set<Id>();
+
+            System.Debug('%%%%'+accountIdSet);
+			List<Account> MasterList = [SELECT Id,ComParent__c, TECH_GlobalMasterID__c, (SELECT Id, TECH_GlobalMasterID__c, ComParent__c FROM Accounts2__r) 
+                                      FROM Account WHERE Id IN :accountIdSet];
+            for(Account childAccount:MasterList) {
+                System.debug('@@@@@@@'+childAccount+'****'+childAccount.Accounts2__r);
+                List<Account> tempList = new List<Account>();
+                if(allChildAccounts.get(childAccount.TECH_GlobalMasterID__c) != null && childAccount.TECH_GlobalMasterID__c != 'ERROR'){                
+                tempList = allChildAccounts.get(string.valueOf(childAccount.TECH_GlobalMasterID__c)); 
+                
+                
+                tempList.addAll(childAccount.Accounts2__r);                     
+                allChildAccounts.put(string.valueOf(childAccount.TECH_GlobalMasterID__c),tempList);
+				}
+                System.debug('$$$$'+allChildAccounts);
+                if(!childAccount.Accounts2__r.isEmpty()) { 
+                    hasChildren = true;
+                    
+                    //levelNumber ++;
+                    System.debug('levelNumberIN' + levelNumber);
+                    for(Account childAccount1:childAccount.Accounts2__r) {
+                            childAccountIdSet.add(childAccount1.Id);
+                    }
+                }
+            }
+            accountIdSet = childAccountIdSet;
+			if(haschildren == True){
+			levelNumber++;
+			}
+            System.debug('levelNumber' + levelNumber);
+        }
+    }
+	List<Account> sizeList = new List<Account>();
+	sizeList = allChildAccounts.get('001b0000005JP2G');
+	System.debug('SIZE####'+sizeList.Size());
+	sizeList = allChildAccounts.get('001b0000005JP2I');
+	System.debug('SIZE####'+sizeList.Size());
+    System.debug('$$$$FINAL$$$$'+allChildAccounts);
+
+
+    return allChildAccounts;
