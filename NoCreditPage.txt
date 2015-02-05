@@ -1,0 +1,81 @@
+<apex:page standardController="Opportunity" extensions="VFC15_ContractCreation">
+
+    <apex:stylesheet value="{!$Resource.STR042_CommonCSS}"/>
+
+    <script> 
+       window.onload = onControllerReturn; 
+       
+       function onControllerReturn() { 
+
+            if('{!createContract}'== 'true') {  
+                createFolderInASA();
+            }
+        }
+    </script>
+    
+    <apex:form styleclass="pBody" id="mainform">
+    
+    <script>
+            if('{!refresh}' == 'true') {
+                setTimeout("top.location.href ='{!IF($Site.CurrentSiteUrl != null, $Site.CurrentSiteUrl, '/')}{!Opportunity.Id}'" , 0 );
+            }
+    </script>
+    
+    <apex:actionFunction action="{!createFolder}" name="createFolderInASA" status="CreationStatus" rerender="mainform"/>
+
+    <apex:actionStatus id="CreationStatus">
+        <apex:facet name="start">
+            <apex:outputPanel >
+            <center>
+                <c:Loading message="Processing ASA Folder Creation..." />
+            </center>
+            </apex:outputPanel>
+        </apex:facet>
+        <apex:facet name="stop">
+        <apex:outputPanel id="loading_pan" rendered="{!refresh}">
+            <center>
+                <c:Loading />
+            </center>
+        </apex:outputPanel>        
+        </apex:facet>    
+    </apex:actionStatus>
+    
+          
+        <apex:outputpanel id="Animation" style="width:100%; text-align:center;" rendered="{!Opportunity.Account.NoCredit__c && !failedCreation && !createContract}">
+         <table border="0" cellpadding="2" cellspacing="0" Style="margin-left: auto; margin-right: auto;">
+            <tr align="center">
+                <td>
+                   <apex:image value="{!$Resource.SmallWarning}"/>
+                </td>
+                <td>
+                    <apex:outputpanel >
+                        &nbsp; <apex:outputText value="Warning: No credit credit payment facility is permitted with this account." Style="font-weight: bold;"/>
+                    </apex:outputpanel>                     
+                </td>
+            </tr>
+          </table>  
+        </apex:outputpanel>
+
+        <apex:outputPanel rendered="{!failedCreation && !createContract}">
+       
+        <div class="message warningM2" id="searchResultsWarningMessageBox" style="width:90%; height:10px; margin-top:0px; margin-top:0px; margin-bottom:auto;"> 
+            <table class="messageTable" border="0" cellpadding="0" cellspacing="0" style="top:-4px; position:relative;">
+                <tbody>
+                    <tr valign="middle">
+                        <td>
+                            <img src="/img/msg_icons/warning16.gif" alt="Warning" title="Warning" />
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td class="messageCell" >
+                            <b>Folder Creation in ASA has failed.</b> <apex:outputText value="{!errorMsg}" escape="false"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> 
+        
+        </apex:outputPanel> 
+    </apex:form>
+</apex:page>
